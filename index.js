@@ -4,6 +4,14 @@
   }
   
   function deepPick(object, json){
+    if (typeof _ === 'undefined') {
+      try {
+        _ = require('lodash');
+      } catch (err) {
+        _ = require('underscore');
+      }
+    }
+    
     if(_.isArray(json) && _.isArray(object)){
       return _.map(object, function(item){
         if(_.isObject(item)) {
@@ -25,8 +33,8 @@
     if (typeof module !== 'undefined') {
       module.exports = deepPick;
     } else {
-     _.mixin({
-      deepPick: deepPick
-    }); 
+      _.mixin({
+        deepPick: deepPick
+      });
     }
 })();
